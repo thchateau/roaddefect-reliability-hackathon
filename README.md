@@ -44,6 +44,52 @@ Final score = 0.80 * mIoU@50 + 0.20 * Reliability@5
 
 The two component scores are always shown separately. See [EVALUATION.md](EVALUATION.md) for the exact matching and edge-case rules.
 
+## Modeling ideas
+
+Participants are free to choose their approach. The following directions are
+intended as starting points rather than requirements:
+
+- **Real-time detectors:** YOLO-family models are a strong baseline when
+  inference speed and a simple deployment pipeline matter.
+- **Transformer detectors:** DETR-style models, including Deformable DETR,
+  DINO and related architectures, can provide strong global context and
+  competitive localization.
+- **Other established baselines:** Faster R-CNN, RetinaNet and hybrid CNN-
+  transformer detectors are also valid choices.
+- **Foundation-model fine-tuning:** a pretrained vision or vision-language
+  foundation model can be fine-tuned, fully or with parameter-efficient
+  methods such as adapters or LoRA. Participants should document the
+  pretrained weights and any external data used.
+- **Self-supervised learning (SSL):** the unannotated images may be useful for
+  domain adaptation or representation learning before supervised fine-tuning.
+  JEPA-style objectives are one example; other SSL methods are welcome if
+  their use complies with the rules.
+
+### Confidence and uncertainty
+
+The `confidence` field should be treated as an estimate that can be calibrated,
+not merely as a ranking score. Teams are encouraged to study reliability on a
+held-out validation split and to report how their operating threshold relates
+to the 5% false-alarm target.
+
+Possible approaches include:
+
+- **BALD:** Bayesian Active Learning by Disagreement can estimate epistemic
+  uncertainty, for example with Monte Carlo dropout or an ensemble. High
+  disagreement may indicate unfamiliar road conditions or out-of-distribution
+  images.
+- **Conformal prediction:** conformal methods can produce prediction sets or
+  calibrated detection regions with an explicit coverage guarantee under their
+  assumptions. Detection-specific adaptations should be fitted on a
+  calibration split that is separate from training data.
+- **Calibration:** temperature scaling, isotonic regression, class-specific
+  thresholds and ensemble averaging can improve the relationship between
+  confidence values and observed correctness.
+
+Uncertainty estimates do not replace the required submission format. If they
+are used, teams should explain how they are converted into predicted boxes,
+confidence values and the final false-alarm operating point.
+
 ## Submission format
 
 Submit one JSON Lines (`.jsonl`) file with one record per test image:
