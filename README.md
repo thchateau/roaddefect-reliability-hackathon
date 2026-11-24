@@ -44,6 +44,8 @@ Final score = 0.80 * mIoU@50 + 0.20 * Reliability@5
 
 The two component scores are always shown separately. See [EVALUATION.md](EVALUATION.md) for the exact matching and edge-case rules.
 
+![Road defect detection pipeline](docs/detection-pipeline.svg)
+
 ## Modeling ideas
 
 Participants are free to choose their approach. The following directions are
@@ -89,6 +91,8 @@ Possible approaches include:
 Uncertainty estimates do not replace the required submission format. If they
 are used, teams should explain how they are converted into predicted boxes,
 confidence values and the final false-alarm operating point.
+
+![Reliability and confidence evaluation](docs/reliability-evaluation.svg)
 
 ## Submission format
 
