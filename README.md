@@ -51,6 +51,12 @@ The two component scores are always shown separately. See [EVALUATION.md](EVALUA
 Participants are free to choose their approach. The following directions are
 intended as starting points rather than requirements:
 
+![Example YOLO road-defect detections](docs/imyolo.png)
+
+*Example of YOLO-style predictions for cracks and potholes. Bounding boxes and
+class scores should be accompanied by a confidence analysis, especially when
+the target false-alarm rate matters.*
+
 - **Real-time detectors:** YOLO-family models are a strong baseline when
   inference speed and a simple deployment pipeline matter.
 - **Transformer detectors:** DETR-style models, including Deformable DETR,
